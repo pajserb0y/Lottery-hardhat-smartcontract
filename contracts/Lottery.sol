@@ -95,7 +95,6 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
         bytes memory /*checkdata*/
     )
         public
-        view
         override
         returns (
             bool upkeepNeeded,
@@ -103,7 +102,7 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
         )
     {
         bool isOpen = (LotteryState.OPEN == s_lotteryState);
-        bool timePassed = (block.timestamp - s_lastTimeStamp) < i_interval;
+        bool timePassed = (block.timestamp - s_lastTimeStamp) > i_interval;
         bool hasPlayers = s_players.length > 0;
         bool hasBalance = address(this).balance > 0;
         upkeepNeeded = (isOpen && timePassed && hasPlayers && hasBalance);
@@ -134,6 +133,7 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
             i_callbackGasLimit, //max gas for callback function// fullfiling
             NUM_WORDS
         );
+        //this is redundant, we can just use event emited by vrfCoordinator
         emit RequestedLotteryWinner(requestId);
     }
 

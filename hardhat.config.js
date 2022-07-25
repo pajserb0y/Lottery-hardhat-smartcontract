@@ -41,10 +41,13 @@ module.exports = {
         },
     },
     gasReporter: {
-        enabled: true,
+        enabled: false,
         currency: "USD",
         outputFile: "gas-report.txt",
         noColors: true,
         // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    },
+    mocha: {
+        timeout: 20000, // 200seconds   this sets timeout period for mocha tests to wait for promise to be resolved or it is reject ed
     },
 }

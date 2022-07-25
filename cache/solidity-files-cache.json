@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/mnt/c/Users/Marko/Desktop/Marko/Blockchain/Blockchain - 32 hour course/hardhat-smartcontrat-lottery/contracts/Lottery.sol": {
-      "lastModificationDate": 1658513047377,
-      "contentHash": "ca52e00eafdc8407d040fce81b4fc7bb",
+      "lastModificationDate": 1658762631757,
+      "contentHash": "5dcb7fee1cd9f12d1e9abb5927204666",
       "sourceName": "contracts/Lottery.sol",
       "solcConfig": {
         "version": "0.8.7",
