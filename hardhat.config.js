@@ -36,7 +36,7 @@ module.exports = {
         rinkeby: {
             chainId: 4,
             blockConfirmations: 6,
-            url: RINKEBY_PRIVATE_KEY,
+            url: RINKEBY_RPC_URL,
             accounts: [RINKEBY_PRIVATE_KEY],
         },
     },
@@ -48,6 +48,12 @@ module.exports = {
         // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     },
     mocha: {
-        timeout: 20000, // 200seconds   this sets timeout period for mocha tests to wait for promise to be resolved or it is reject ed
+        timeout: 300000, // 300seconds   this sets timeout period for mocha tests to wait for promise to be resolved or it is reject ed
+    },
+    etherscan: {
+        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+        apiKey: {
+            rinkeby: ETHERSCAN_API_KEY,
+        },
     },
 }

@@ -150,7 +150,7 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
 
                   await new Promise(async (resolve, reject) => {
                       lottery.once("WinnerPicked", async () => {
-                          //event listener for WinnerPicked
+                          //event listener for WinnerPicked, only when event is emmited we can assert results
                           console.log("Found the WinnerPicked event")
                           try {
                               const recentWinner = await lottery.getRecentWinner()
@@ -186,6 +186,7 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
                       // Setting up the listener
 
                       //below, we will fire the event adn the listener will pick it up, and resolve
+                      //this part will not be needed in staging test because we will use (nonlocal )test network which will use real chainlink keepers and vrf
                       const tx = await lottery.performUpkeep([]) //mocking chainlink keepers
                       const txReceipt = await tx.wait(1)
                       const winnerStartingBalance = await accounts[1].getBalance()
