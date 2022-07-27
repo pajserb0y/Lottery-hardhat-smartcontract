@@ -6,7 +6,7 @@ export default function ManualHeader() {
 
   return (
     <div>
-      <button onClick={ () => {await enableWeb3()}}>Connect</button>
+      <button onClick={async () => {await enableWeb3()}}>Connect</button>
     </div>
   )
 }
