@@ -16,7 +16,11 @@ export default function LotteryEntrance() {
 
     const dispatch = useNotification()
 
-    const { runContractFunction: enterLottery } = useWeb3Contract({
+    const {
+        runContractFunction: enterLottery,
+        isLoading,
+        isFetching,
+    } = useWeb3Contract({
         abi: abi,
         contractAddress: lotteryAddress,
         functionName: "enterLottery",
@@ -76,7 +80,7 @@ export default function LotteryEntrance() {
     }, [isWeb3Enabled])
 
     const handleSuccess = async function (tx) {
-        await tx.wait(1)
+        await tx.wait(1) //this really waits for transaction to be confirmed
         handleNewNotificationTx(tx)
         updateUI()
     }
@@ -92,19 +96,25 @@ export default function LotteryEntrance() {
     }
 
     return (
-        <div>
+        <div className="p-5">
             Hi from lottery entrance
             {lotteryAddress ? (
                 <div>
                     <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
                         onClick={async function () {
                             await enterLottery({
-                                onSuccess: handleSuccess,
+                                onSuccess: handleSuccess, //onSuccess checks if transaction is sent to metamask not if it has block confirmation
                                 onError: (error) => console.log(error),
                             })
                         }}
+                        disabled={isFetching || isLoading}
                     >
-                        Enter Lottery
+                        {isLoading || isFetching ? (
+                            <div className="animate-spin spinner-border h-8 w8 border-b-2 rounded-full"></div>
+                        ) : (
+                            <div>Enter Lottery</div>
+                        )}
                     </button>
                     <div>
                         Entrance Fee is: {ethers.utils.formatUnits(entranceFee, "ether")} ETH
